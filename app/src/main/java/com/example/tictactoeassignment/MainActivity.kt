@@ -119,7 +119,6 @@ fun TicTacToeGame() {
 
                 Spacer(modifier = Modifier.height(20.dp))
 
-                // Play Again Button
                 if (gameOver) {
                     Button(onClick = { resetGame() }) {
                         Text(text = "Play Again")
