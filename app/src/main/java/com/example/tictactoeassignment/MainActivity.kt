@@ -3,6 +3,8 @@ package com.example.tictactoeassignment
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -25,7 +27,6 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun TicTacToeGame() {
-
     var board by remember { mutableStateOf(Array(3) { Array(3) { "" } }) }
     var currentPlayer by remember { mutableStateOf("X") }
     var gameOver by remember { mutableStateOf(false) }
@@ -51,5 +52,88 @@ fun TicTacToeGame() {
 
     fun checkForDraw(): Boolean {
         return board.flatten().all { it.isNotEmpty() }
+    }
+
+    fun onCellClick(row: Int, col: Int) {
+        if (board[row][col].isEmpty() && !gameOver) {
+            board[row][col] = currentPlayer
+            if (checkForWin()) {
+                winnerMessage = "$currentPlayer Wins!"
+                gameOver = true
+            } else if (checkForDraw()) {
+                winnerMessage = "It's a Draw!"
+                gameOver = true
+            } else {
+                currentPlayer = if (currentPlayer == "X") "O" else "X"
+            }
+        }
+    }
+
+    fun resetGame() {
+        board = Array(3) { Array(3) { "" } }
+        currentPlayer = "X"
+        gameOver = false
+        winnerMessage = ""
+    }
+
+    Scaffold(
+        modifier = Modifier.fillMaxSize(),
+        content = {
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center,
+                modifier = Modifier.fillMaxSize().padding(16.dp)
+            ) {
+                Text(
+                    text = if (gameOver) winnerMessage else "Player $currentPlayer's Turn",
+                    style = MaterialTheme.typography.headlineMedium
+                )
+                Spacer(modifier = Modifier.height(20.dp))
+
+                Column(
+                    modifier = Modifier.padding(8.dp)
+                ) {
+                    for (i in 0 until 3) {
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.Center
+                        ) {
+                            for (j in 0 until 3) {
+                                Box(
+                                    modifier = Modifier
+                                        .padding(8.dp)
+                                        .size(80.dp)
+                                        .background(MaterialTheme.colorScheme.primary)
+                                        .clickable { onCellClick(i, j) },
+                                    contentAlignment = Alignment.Center
+                                ) {
+                                    Text(
+                                        text = board[i][j],
+                                        style = MaterialTheme.typography.headlineLarge
+                                    )
+                                }
+                            }
+                        }
+                    }
+                }
+
+                Spacer(modifier = Modifier.height(20.dp))
+
+                // Play Again Button
+                if (gameOver) {
+                    Button(onClick = { resetGame() }) {
+                        Text(text = "Play Again")
+                    }
+                }
+            }
+        }
+    )
+}
+
+@Preview(showBackground = true)
+@Composable
+fun DefaultPreview() {
+    TicTacToeAssignmentTheme {
+        TicTacToeGame()
     }
 }
