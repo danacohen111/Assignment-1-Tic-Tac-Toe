@@ -27,13 +27,11 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun TicTacToeGame() {
-    // 3x3 grid game state
     var board by remember { mutableStateOf(Array(3) { Array(3) { "" } }) }
     var currentPlayer by remember { mutableStateOf("X") }
     var gameOver by remember { mutableStateOf(false) }
     var winnerMessage by remember { mutableStateOf("") }
 
-    // Check for a win or draw
     fun checkForWin(): Boolean {
         for (i in 0 until 3) {
             if (board[i][0] == currentPlayer && board[i][1] == currentPlayer && board[i][2] == currentPlayer) {
@@ -52,12 +50,10 @@ fun TicTacToeGame() {
         return false
     }
 
-    // Check for a draw (board full)
     fun checkForDraw(): Boolean {
         return board.flatten().all { it.isNotEmpty() }
     }
 
-    // Handle player move
     fun onCellClick(row: Int, col: Int) {
         if (board[row][col].isEmpty() && !gameOver) {
             board[row][col] = currentPlayer
@@ -73,7 +69,6 @@ fun TicTacToeGame() {
         }
     }
 
-    // Reset game
     fun resetGame() {
         board = Array(3) { Array(3) { "" } }
         currentPlayer = "X"
@@ -81,7 +76,6 @@ fun TicTacToeGame() {
         winnerMessage = ""
     }
 
-    // UI Layout
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         content = {
@@ -96,7 +90,6 @@ fun TicTacToeGame() {
                 )
                 Spacer(modifier = Modifier.height(20.dp))
 
-                // Game Grid
                 Column(
                     modifier = Modifier.padding(8.dp)
                 ) {
