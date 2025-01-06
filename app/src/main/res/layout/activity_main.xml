@@ -1,85 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    tools:ignore="MissingClass">
+    android:padding="16dp"
+    android:gravity="center"> <!-- Center everything in the parent layout -->
 
-    <GridLayout
-        android:id="@+id/gridLayout"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="50dp"
-        android:columnCount="3"
-        android:rowCount="3"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <Button
-            android:id="@+id/button00"
-            style="@style/TicTacToeButton" />
-
-        <Button
-            android:id="@+id/button01"
-            style="@style/TicTacToeButton" />
-
-        <Button
-            android:id="@+id/button02"
-            style="@style/TicTacToeButton" />
-
-        <Button
-            android:id="@+id/button10"
-            style="@style/TicTacToeButton" />
-
-        <Button
-            android:id="@+id/button11"
-            style="@style/TicTacToeButton" />
-
-        <Button
-            android:id="@+id/button12"
-            style="@style/TicTacToeButton" />
-
-        <Button
-            android:id="@+id/button20"
-            style="@style/TicTacToeButton" />
-
-        <Button
-            android:id="@+id/button21"
-            style="@style/TicTacToeButton" />
-
-        <Button
-            android:id="@+id/button22"
-            style="@style/TicTacToeButton" />
-
-    </GridLayout>
-
+    <!-- Status TextView -->
     <TextView
         android:id="@+id/statusTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:gravity="center"
         android:text="Player X's Turn"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/gridLayout" />
+        android:textSize="20sp"
+        android:layout_gravity="center_horizontal"
+        android:paddingBottom="16dp"/>
 
-    <Button
-        android:id="@+id/playAgainButton"
+    <!-- Centered Gameboard -->
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Play Again"
-        android:visibility="gone"
-        android:onClick="resetGame"
-        app:layout_constraintTop_toBottomOf="@id/statusTextView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:gravity="center"/>
+        android:gravity="center">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <GridLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:columnCount="3"
+            android:rowCount="3"
+            android:layout_marginBottom="16dp">
+
+            <!-- Tic Tac Toe Buttons -->
+            <Button
+                android:id="@+id/button_00"
+                android:layout_width="80dp"
+                android:layout_height="80dp" />
+            <Button
+                android:id="@+id/button_01"
+                android:layout_width="80dp"
+                android:layout_height="80dp" />
+            <Button
+                android:id="@+id/button_02"
+                android:layout_width="80dp"
+                android:layout_height="80dp" />
+
+            <Button
+                android:id="@+id/button_10"
+                android:layout_width="80dp"
+                android:layout_height="80dp" />
+            <Button
+                android:id="@+id/button_11"
+                android:layout_width="80dp"
+                android:layout_height="80dp" />
+            <Button
+                android:id="@+id/button_12"
+                android:layout_width="80dp"
+                android:layout_height="80dp" />
+
+            <Button
+                android:id="@+id/button_20"
+                android:layout_width="80dp"
+                android:layout_height="80dp" />
+            <Button
+                android:id="@+id/button_21"
+                android:layout_width="80dp"
+                android:layout_height="80dp" />
+            <Button
+                android:id="@+id/button_22"
+                android:layout_width="80dp"
+                android:layout_height="80dp" />
+        </GridLayout>
+    </LinearLayout>
+
+    <!-- Reset Button -->
+    <Button
+        android:text="Play Again"
+        android:onClick="resetGame"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:paddingTop="8dp"/>
+</LinearLayout>
